@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 260 30% 7%;
+    --foreground: 252 30% 92%;
+
+    --card: 260 25% 10%;
+    --card-foreground: 252 30% 92%;
+
+    --popover: 260 25% 10%;
+    --popover-foreground: 252 30% 92%;
+
+    --primary: 263 76% 66%;
+    --primary-foreground: 260 30% 7%;
+
+    --secondary: 42 60% 55%;
+    --secondary-foreground: 260 30% 7%;
+
+    --muted: 255 15% 18%;
+    --muted-foreground: 252 12% 48%;
+
+    --accent: 263 76% 66%;
+    --accent-foreground: 252 30% 92%;
+
+    --destructive: 0 60% 40%;
+    --destructive-foreground: 252 30% 92%;
+
+    --border: 255 20% 17%;
+    --input: 255 20% 17%;
+    --ring: 263 76% 66%;
+
+    --radius: 0.75rem;
+
+    /* ZKachi custom tokens */
+    --zkachi-bg: 260 30% 7%;
+    --zkachi-surface: 255 25% 9%;
+    --zkachi-border: 255 20% 17%;
+    --zkachi-purple: 263 76% 66%;
+    --zkachi-gold: 42 60% 55%;
+    --zkachi-text-primary: 252 30% 92%;
+    --zkachi-text-secondary: 252 12% 61%;
+    --zkachi-text-muted: 252 15% 35%;
+
+    --sidebar-background: 260 25% 10%;
+    --sidebar-foreground: 252 30% 92%;
+    --sidebar-primary: 263 76% 66%;
+    --sidebar-primary-foreground: 260 30% 7%;
+    --sidebar-accent: 255 15% 18%;
+    --sidebar-accent-foreground: 252 30% 92%;
+    --sidebar-border: 255 20% 17%;
+    --sidebar-ring: 263 76% 66%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-outfit;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .font-outfit {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .font-space {
+    font-family: 'Space Mono', monospace;
+  }
+
+  .font-dm-sans {
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .text-zkachi-gold {
+    color: hsl(var(--zkachi-gold));
+  }
+
+  .text-zkachi-purple {
+    color: hsl(var(--zkachi-purple));
+  }
+
+  .text-zkachi-secondary {
+    color: hsl(var(--zkachi-text-secondary));
+  }
+
+  .text-zkachi-muted {
+    color: hsl(var(--zkachi-text-muted));
+  }
+
+  .bg-zkachi-surface {
+    background-color: hsl(var(--zkachi-surface));
+  }
+
+  .border-zkachi {
+    border-color: hsl(var(--zkachi-border));
+  }
+
+  .glass-morphism {
+    background: hsl(var(--zkachi-surface) / 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid hsl(var(--zkachi-border));
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 40px hsl(var(--zkachi-gold) / 0.2);
+  }
+
+  .glow-purple {
+    box-shadow: 0 0 40px hsl(var(--zkachi-purple) / 0.2);
+  }
+}
+
+/* Roulette wheel spin */
+@keyframes wheel-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes counter-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes ball-orbit {
+  /* Phase 1: Fast outer orbit (0-50%) */
+  0% { 
+    transform: rotate(0deg) translateX(130px) scale(1.05);
+    opacity: 1;
+  }
+  12% { 
+    transform: rotate(-270deg) translateX(130px) scale(1.02);
+  }
+  25% { 
+    transform: rotate(-540deg) translateX(128px) scale(1);
+  }
+  37% { 
+    transform: rotate(-720deg) translateX(125px) scale(0.98);
+  }
+  50% { 
+    transform: rotate(-810deg) translateX(120px) scale(0.96);
+  }
+  /* Phase 2: Spiral inward (50-80%) */
+  56% { 
+    transform: rotate(-860deg) translateX(110px) translateY(-2px) scale(0.94);
+  }
+  62% { 
+    transform: rotate(-900deg) translateX(100px) translateY(2px) scale(0.92);
+  }
+  68% { 
+    transform: rotate(-930deg) translateX(90px) translateY(-3px) scale(0.9);
+  }
+  74% { 
+    transform: rotate(-950deg) translateX(80px) translateY(1px) scale(0.88);
+  }
+  80% { 
+    transform: rotate(-965deg) translateX(72px) translateY(-1px) scale(0.87);
+  }
+  /* Phase 3: Settle (80-100%) */
+  87% { 
+    transform: rotate(-975deg) translateX(68px) scale(0.86);
+  }
+  93% { 
+    transform: rotate(-980deg) translateX(65px) translateY(2px) scale(0.85);
+  }
+  97% { 
+    transform: rotate(-982deg) translateX(65px) translateY(1px) scale(0.85);
+  }
+  100% { 
+    transform: rotate(-983deg) translateX(65px) translateY(0px) scale(0.85);
+  }
+}
+
+@keyframes pulse-green {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes float-daruma {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-12px) rotate(1deg); }
+  50% { transform: translateY(0px) rotate(0deg); }
+  75% { transform: translateY(12px) rotate(-1deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+.animate-wheel-spin {
+  animation: wheel-spin 15s linear infinite;
+}
+
+.animate-counter-spin {
+  animation: counter-spin 15s linear infinite;
+}
+
+.animate-ball-orbit {
+  animation: ball-orbit 8s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+}
+
+.animate-pulse-green {
+  animation: pulse-green 2s ease-in-out infinite;
+}
+
+.animate-float-daruma {
+  animation: float-daruma 6s ease-in-out infinite;
+}
+
+@keyframes float-daruma-small {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float-daruma-small {
+  animation: float-daruma-small 4s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes floatBubble {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+}

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZKachi · Brand Guide v2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#08060f;
+  --bg2:#0b0916;
+  --card:#0d0a18;
+  --card2:#100d1e;
+  --border:#1a1530;
+  --border2:#241e3a;
+  --purple:#8b5cf6;
+  --purple-d:#6d45d4;
+  --purple-b:#a78bfa;
+  --gold:#d4a843;
+  --gold-l:#e8c468;
+  --gold-d:#a07e2e;
+  --text:#e8e6f0;
+  --text2:#9590a8;
+  --text3:#4e4968;
+  --fill:#0a0714;
+  --dbody:#110d1e;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;}
+.noise{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:100;}
+
+/* === NAV === */
+.topnav{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 32px;
+  background:rgba(8,6,15,0.85);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.topnav-left{display:flex;align-items:center;gap:10px;}
+.topnav-left span{font-weight:700;font-size:15px;color:var(--text);}
+.topnav-left span b{color:var(--gold);}
+.topnav-links{display:flex;gap:6px;}
+.topnav-links a{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1.5px;
+  color:var(--text3);text-decoration:none;padding:6px 12px;border-radius:6px;
+  transition:color 0.2s,background 0.2s;text-transform:uppercase;
+}
+.topnav-links a:hover{color:var(--text2);background:rgba(139,92,246,0.08);}
+.topnav-links a.active{color:var(--purple);background:rgba(139,92,246,0.1);}
+
+@media(max-width:700px){.topnav-links{display:none;}}
+
+/* === HERO === */
+.hero{
+  position:relative;padding:80px 20px 60px;text-align:center;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 600px 400px at 50% 40%,rgba(139,92,246,0.07) 0%,transparent 70%),
+             radial-gradient(ellipse 350px 250px at 50% 45%,rgba(212,168,67,0.04) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-badge{
+  position:relative;z-index:2;
+  display:inline-block;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:3px;
+  color:var(--purple);background:rgba(139,92,246,0.1);
+  padding:6px 16px;border-radius:100px;text-transform:uppercase;
+  margin-bottom:20px;
+}
+.hero h1{position:relative;z-index:2;font-size:48px;font-weight:900;}
+.hero h1 span{color:var(--gold);}
+.hero p{position:relative;z-index:2;color:var(--text3);font-size:14px;margin-top:8px;font-weight:300;}
+
+/* === CONTAINER === */
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+/* === SECTION === */
+.sec{padding:56px 0 0;}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.sh .sn{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--purple);background:rgba(139,92,246,0.1);padding:5px 12px;border-radius:6px;flex-shrink:0;}
+.sh .st{font-size:14px;font-weight:600;color:var(--text2);}
+
+/* === GRID === */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;}
+@media(max-width:768px){.g2,.g3,.g4{grid-template-columns:1fr;}}
+
+/* === CARD === */
+.c{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color 0.3s,transform 0.3s;}
+.c:hover{border-color:var(--border2);transform:translateY(-2px);}
+.c-pad{padding:28px 24px;}
+.c-foot{padding:10px 24px 14px;border-top:1px solid var(--border);}
+.c-foot span{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;}
+
+/* === ANIMATION === */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes glow{0%,100%{filter:drop-shadow(0 0 10px rgba(139,92,246,0.15))}50%{filter:drop-shadow(0 0 20px rgba(139,92,246,0.35))}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* === COLORS === */
+.cg{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border-radius:14px;overflow:hidden;border:1px solid var(--border);}
+.cc{padding:24px 10px 18px;text-align:center;transition:transform 0.2s;}
+.cc:hover{transform:scale(1.05);z-index:2;border-radius:6px;}
+.cc-dot{width:32px;height:32px;border-radius:50%;margin:0 auto;border:2px solid rgba(255,255,255,0.05);}
+.cc-n{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;margin-top:8px;color:var(--text3);}
+.cc-h{font-family:'Space Mono',monospace;font-size:8.5px;margin-top:2px;opacity:0.6;}
+@media(max-width:600px){.cg{grid-template-columns:repeat(3,1fr);}}
+
+/* === PATTERN === */
+.pc{height:180px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--card);border:1px solid var(--border);border-radius:16px;transition:border-color 0.3s;}
+.pc:hover{border-color:var(--border2);}
+.pc .pb{position:absolute;inset:0;opacity:0.1;}
+.pc .pl{position:relative;z-index:2;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;background:rgba(8,6,15,0.75);padding:8px 16px;border-radius:8px;backdrop-filter:blur(4px);text-align:center;line-height:1.8;}
+
+/* === MOCKUPS === */
+.mock-twitter{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;
+}
+.mt-banner{
+  height:140px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#0d0a18 0%,#1a1030 50%,#0d0a18 100%);
+}
+.mt-banner .mtb-pattern{position:absolute;inset:0;opacity:0.06;}
+.mt-banner .mtb-text{
+  position:absolute;bottom:20px;right:24px;
+  font-family:'Outfit',sans-serif;font-weight:800;font-size:28px;
+  color:var(--text);opacity:0.15;letter-spacing:1px;
+}
+.mt-profile{padding:0 20px;margin-top:-30px;position:relative;z-index:2;}
+.mt-avatar{
+  width:64px;height:64px;border-radius:50%;
+  background:var(--bg);border:3px solid var(--card);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.mt-info{padding:12px 20px 20px;}
+.mt-name{font-weight:700;font-size:15px;}
+.mt-name b{color:var(--gold);}
+.mt-handle{font-family:'Space Mono',monospace;font-size:11px;color:var(--text3);margin-top:1px;}
+.mt-bio{font-size:13px;color:var(--text2);margin-top:8px;line-height:1.5;font-weight:300;}
+
+.mock-og{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;
+}
+.og-inner{
+  position:relative;
+  aspect-ratio:1200/630;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  background:linear-gradient(160deg,#08060f 0%,#12101f 40%,#0d0a18 100%);
+}
+.og-inner .og-pat{position:absolute;inset:0;opacity:0.04;}
+.og-inner .og-glow{
+  position:absolute;width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(139,92,246,0.12) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+}
+.og-content{position:relative;z-index:2;text-align:center;padding:20px;}
+
+.mock-discord{
+  background:#1a1530;border:1px solid var(--border);border-radius:16px;overflow:hidden;
+}
+.dc-top{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.dc-hash{font-family:'Space Mono',monospace;font-size:11px;color:var(--text3);}
+.dc-body{padding:16px;}
+.dc-msg{display:flex;gap:10px;margin-bottom:12px;}
+.dc-av{width:32px;height:32px;border-radius:50%;background:var(--bg);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.dc-txt .dc-user{font-size:12px;font-weight:600;color:var(--gold);}
+.dc-txt .dc-time{font-size:9px;color:var(--text3);margin-left:6px;}
+.dc-txt .dc-content{font-size:12px;color:var(--text2);margin-top:3px;line-height:1.5;}
+
+/* Embed */
+.dc-embed{
+  border-left:3px solid var(--purple);
+  background:rgba(139,92,246,0.06);
+  border-radius:0 8px 8px 0;
+  padding:12px 14px;
+  margin-top:6px;
+  max-width:340px;
+}
+.dc-embed .de-title{font-size:12px;font-weight:700;color:var(--purple);}
+.dc-embed .de-desc{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.4;}
+
+/* === DONTS === */
+.dont{
+  background:var(--card);border:1px solid rgba(194,59,59,0.15);border-radius:14px;
+  padding:20px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:140px;
+}
+.dont .dx{font-size:18px;color:#c23b3b;margin-bottom:8px;}
+.dont .dt{font-size:10px;color:var(--text3);margin-top:10px;line-height:1.4;}
+
+/* === FOOTER === */
+.footer{text-align:center;padding:50px 20px 70px;margin-top:60px;border-top:1px solid var(--border);}
+.footer p{font-size:11px;color:var(--text3);}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<!-- NAV -->
+<nav class="topnav">
+  <div class="topnav-left">
+    <svg width="22" height="22" viewBox="0 0 200 200" fill="none">
+      <ellipse cx="100" cy="106" rx="64" ry="69" fill="var(--dbody)" stroke="var(--gold)" stroke-width="3"/>
+      <circle cx="80" cy="92" r="12" fill="var(--fill)" stroke="var(--gold)" stroke-width="2.5"/>
+      <circle cx="80" cy="92" r="5" fill="var(--gold)"/>
+      <circle cx="120" cy="92" r="12" fill="var(--fill)" stroke="var(--purple)" stroke-width="2.5"/>
+      <text x="120" y="97" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" font-weight="700" fill="var(--purple)">ZK</text>
+      <path d="M86 118 Q100 127 114 118" stroke="var(--gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span>ZK<b>achi</b></span>
+  </div>
+  <div class="topnav-links">
+    <a href="#" class="active">Overview</a>
+    <a href="#">Logo</a>
+    <a href="#">Type</a>
+    <a href="#">Colors</a>
+    <a href="#">Mockups</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Brand Guide v2.0 · Final</div>
+  <h1>ZK<span>achi</span></h1>
+  <p>Outfit + Space Mono · Daruma Responsivo · Royal Night</p>
+</section>
+
+<div class="wrap">
+
+<!-- ═══════════════ 01 LOGO SYSTEM ═══════════════ -->
+<section class="sec">
+  <div class="sh"><span class="sn">01</span><span class="st">Logo System · Simplificação Responsiva</span></div>
+
+  <div class="g4">
+    <!-- Full detail -->
+    <div class="c">
+      <div class="c-pad" style="display:flex;align-items:center;justify-content:center;min-height:180px;background:radial-gradient(ellipse at center,#14102a 0%,var(--card) 70%);">
+        <svg width="110" height="110" viewBox="0 0 200 200" fill="none" style="animation:float 5s ease-in-out infinite;">
+          <ellipse cx="100" cy="108" rx="68" ry="74" fill="var(--dbody)" stroke="var(--gold)" stroke-width="2.2"/>
+          <ellipse cx="100" cy="108" rx="68" ry="74" fill="url(#rg1)" opacity="0.3"/>
+          <ellipse cx="100" cy="95" rx="46" ry="42" fill="#160f25" stroke="var(--gold)" stroke-width="1" opacity="0.5"/>
+          <circle cx="78" cy="90" r="15" fill="var(--fill)" stroke="var(--gold)" stroke-width="1.5"/>
+          <circle cx="78" cy="90" r="7" fill="var(--gold)"/><circle cx="76" cy="88" r="2.5" fill="#fff" opacity="0.5"/>
+          <circle cx="122" cy="90" r="15" fill="var(--fill)" stroke="var(--purple)" stroke-width="1.5"/>
+          <text x="122" y="95" text-anchor="middle" font-family="Space Mono,monospace" font-size="12" font-weight="700" fill="var(--purple)">ZK</text>
+          <rect x="113" y="81" width="2.5" height="2.5" fill="var(--purple)" opacity="0.3"/>
+          <rect x="129" y="86" width="2" height="2" fill="var(--purple)" opacity="0.35"/>
+          <rect x="116" y="96" width="2" height="2" fill="var(--purple)" opacity="0.25"/>
+          <path d="M62 74 Q78 65 94 74" stroke="var(--gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M106 74 Q122 65 138 74" stroke="var(--purple)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M85 115 Q100 124 115 115" stroke="var(--gold)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <text x="100" y="148" text-anchor="middle" font-family="Noto Sans JP,sans-serif" font-size="16" font-weight="900" fill="var(--gold)" opacity="0.4">勝</text>
+          <circle cx="100" cy="108" r="73" stroke="var(--gold)" stroke-width="0.4" fill="none" opacity="0.15" stroke-dasharray="3 6"/>
+          <defs><radialGradient id="rg1" cx="0.5" cy="0.3"><stop offset="0%" stop-color="var(--purple)" stop-opacity="0.2"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+        </svg>
+      </div>
+      <div class="c-foot"><span>FULL · 120px+</span></div>
+    </div>
+
+    <!-- Medium -->
+    <div class="c">
+      <div class="c-pad" style="display:flex;align-items:center;justify-content:center;min-height:180px;">
+        <svg width="80" height="80" viewBox="0 0 200 200" fill="none">
+          <ellipse cx="100" cy="106" rx="64" ry="69" fill="var(--dbody)" stroke="var(--gold)" stroke-width="2.5"/>
+          <circle cx="80" cy="92" r="14" fill="var(--fill)" stroke="var(--gold)" stroke-width="1.8"/>
+          <circle cx="80" cy="92" r="6.5" fill="var(--gold)"/><circle cx="78" cy="90" r="2.2" fill="#fff" opacity="0.4"/>
+          <circle cx="120" cy="92" r="14" fill="var(--fill)" stroke="var(--purple)" stroke-width="1.8"/>
+          <text x="120" y="97" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" font-weight="700" fill="var(--purple)">ZK</text>
+          <path d="M66 78 Q80 69 94 78" stroke="var(--gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M106 78 Q120 69 134 78" stroke="var(--purple)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M86 118 Q100 127 114 118" stroke="var(--gold)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="c-foot"><span>MEDIUM · 48-120px</span></div>
+    </div>
+
+    <!-- Small -->
+    <div class="c">
+      <div class="c-pad" style="display:flex;align-items:center;justify-content:center;min-height:180px;">
+        <svg width="48" height="48" viewBox="0 0 200 200" fill="none">
+          <ellipse cx="100" cy="106" rx="62" ry="67" fill="var(--dbody)" stroke="var(--gold)" stroke-width="3.5"/>
+          <circle cx="80" cy="94" r="13" fill="var(--fill)" stroke="var(--gold)" stroke-width="2.5"/>
+          <circle cx="80" cy="94" r="5.5" fill="var(--gold)"/>
+          <circle cx="120" cy="94" r="13" fill="var(--fill)" stroke="var(--purple)" stroke-width="2.5"/>
+          <text x="120" y="99" text-anchor="middle" font-family="Space Mono,monospace" font-size="12" font-weight="700" fill="var(--purple)">ZK</text>
+          <path d="M88 120 Q100 128 112 120" stroke="var(--gold)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="c-foot"><span>SMALL · 24-48px</span></div>
+    </div>
+
+    <!-- Micro -->
+    <div class="c">
+      <div class="c-pad" style="display:flex;align-items:center;justify-content:center;min-height:180px;gap:16px;">
+        <svg width="32" height="32" viewBox="0 0 200 200" fill="none">
+          <ellipse cx="100" cy="104" rx="60" ry="65" fill="var(--dbody)" stroke="var(--gold)" stroke-width="5"/>
+          <circle cx="80" cy="94" r="14" fill="var(--gold)"/>
+          <circle cx="120" cy="94" r="14" fill="var(--purple)"/>
+        </svg>
+        <svg width="20" height="20" viewBox="0 0 200 200" fill="none">
+          <ellipse cx="100" cy="104" rx="60" ry="65" fill="var(--dbody)" stroke="var(--gold)" stroke-width="7"/>
+          <circle cx="80" cy="94" r="16" fill="var(--gold)"/>
+          <circle cx="120" cy="94" r="16" fill="var(--purple)"/>
+        </svg>
+      </div>
+      <div class="c-foot"><span>MICRO · 16-24px · Favicon</span></div>
+    </div>
+  </div>
+
+  <!-- Lockups -->
+  <div class="g2" style="margin-top:16px;">
+    <div class="c">
+      <div class="c-pad" style="display:flex;align-items:center;gap:16px;">
+        <svg width="48" height="48" viewBox="0 0 200 200" fill="none" style="flex-shrink:0;">
+          <ellipse cx="100" cy="108" rx="68" ry="74" fill="var(--dbody)" stroke="var(--gold)" stroke-width="2.2"/>
+          <ellipse cx="100" cy="108" rx="68" ry="74" fill="url(#rg2)" opacity="0.3"/>
+          <ellipse cx="100" cy="95" rx="46" ry="42" fill="#160f25" stroke="var(--gold)" stroke-width="1" opacity="0.5"/>
+          <circle cx="78" cy="90" r="15" fill="var(--fill)" stroke="var(--gold)" stroke-width="1.5"/>
+          <circle cx="78" cy="90" r="7" fill="var(--gold)"/><circle cx="76" cy="88" r="2.5" fill="#fff" opacity="0.5"/>
+          <circle cx="122" cy="90" r="15" fill="var(--fill)" stroke="var(--purple)" stroke-width="1.5"/>
+          <text x="122" y="95" text-anchor="middle" font-family="Space Mono,monospace" font-size="12" font-weight="700" fill="var(--purple)">ZK</text>
+          <rect x="113" y="81" width="2.5" height="2.5" fill="var(--purple)" opacity="0.3"/>
+          <rect x="129" y="86" width="2" height="2" fill="var(--purple)" opacity="0.35"/>
+          <path d="M62 74 Q78 65 94 74" stroke="var(--gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M106 74 Q122 65 138 74" stroke="var(--purple)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M85 115 Q100 124 115 115" stroke="var(--gold)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <text x="100" y="148" text-anchor="middle" font-family="Noto Sans JP,sans-serif" font-size="16" font-weight="900" fill="var(--gold)" opacity="0.4">勝</text>
+          <defs><radialGradient id="rg2" cx="0.5" cy="0.3"><stop offset="0%" stop-color="var(--purple)" stop-opacity="0.2"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+        </svg>
+        <div>
+          <div style="font-weight:800;font-size:26px;">ZK<span style="color:var(--gold)">achi</span></div>
+          <div style="font-family:'Space Mono',monospace;font-size:7.5px;color:var(--text3);letter-spacing:3px;">ZERO KNOWLEDGE CASINO</div>
+        </div>
+      </div>
+      <div class="c-foot"><span>PRIMARY LOCKUP · Horizontal</span></div>
+    </div>
+
+    <div class="c">
+      <div class="c-pad" style="display:flex;align-items:center;gap:16px;">
+        <svg width="48" height="48" viewBox="0 0 200 200" fill="none" style="flex-shrink:0;">
+          <ellipse cx="100" cy="108" rx="68" ry="74" fill="var(--dbody)" stroke="var(--gold)" stroke-width="2.2"/>
+          <ellipse cx="100" cy="108" rx="68" ry="74" fill="url(#rg3)" opacity="0.3"/>
+          <ellipse cx="100" cy="95" rx="46" ry="42" fill="#160f25" stroke="var(--gold)" stroke-width="1" opacity="0.5"/>
+          <circle cx="78" cy="90" r="15" fill="var(--fill)" stroke="var(--gold)" stroke-width="1.5"/>
+          <circle cx="78" cy="90" r="7" fill="var(--gold)"/><circle cx="76" cy="88" r="2.5" fill="#fff" opacity="0.5"/>
+          <circle cx="122" cy="90" r="15" fill="var(--fill)" stroke="var(--purple)" stroke-width="1.5"/>
+          <text x="122" y="95" text-anchor="middle" font-family="Space Mono,monospace" font-size="12" font-weight="700" fill="var(--purple)">ZK</text>
+          <rect x="113" y="81" width="2.5" height="2.5" fill="var(--purple)" opacity="0.3"/>
+          <rect x="129" y="86" width="2" height="2" fill="var(--purple)" opacity="0.35"/>
+          <path d="M62 74 Q78 65 94 74" stroke="var(--gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M106 74 Q122 65 138 74" stroke="var(--purple)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M85 115 Q100 124 115 115" stroke="var(--gold)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <text x="100" y="148" text-anchor="middle" font-family="Noto Sans JP,sans-serif" font-size="16" font-weight="900" fill="var(--gold)" opacity="0.4">勝</text>
+          <defs><radialGradient id="rg3" cx="0.5" cy="0.3"><stop offset="0%" stop-color="var(--purple)" stop-opacity="0.2"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+        </svg>
+        <div>
+          <div style="font-weight:800;font-size:26px;">ZK<span style="color:var(--gold)">achi</span></div>
+          <div style="font-family:'DM Sans',sans-serif;font-style:italic;font-size:12px;color:var(--gold);opacity:0.7;margin-top:1px;">bet private, win public</div>
+        </div>
+      </div>
+      <div class="c-foot"><span>TAGLINE LOCKUP · Horizontal</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 02 TYPOGRAPHY ═══════════════ -->
+<section class="sec">
+  <div class="sh"><span class="sn">02</span><span class="st">Typography · 2 Fontes, Todos os Usos</span></div>
+
+  <div class="g2">
+    <div class="c">
+      <div class="c-pad">
+        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--purple);text-transform:uppercase;margin-bottom:12px;">Primary · Outfit</div>
+        <div style="font-weight:900;font-size:40px;color:var(--text);line-height:1.1;">ZK<span style="color:var(--gold)">achi</span></div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+          <div style="font-weight:800;font-size:24px;color:var(--text);margin-bottom:4px;">Headlines · 800</div>
+          <div style="font-weight:600;font-size:18px;color:var(--text);margin-bottom:4px;">Subheadings · 600</div>
+          <div style="font-weight:400;font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:4px;">Body text in regular weight. Aposte com privacidade total usando provas de zero knowledge.</div>
+          <div style="font-weight:300;font-size:13px;color:var(--text3);line-height:1.6;">Captions and small text · 300</div>
+        </div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+          <div style="font-weight:800;font-size:28px;color:var(--gold);letter-spacing:1px;">$2.4M</div>
+          <div style="font-size:10px;color:var(--text3);margin-top:2px;">Stats e números grandes também em Outfit 800</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="c">
+      <div class="c-pad">
+        <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--purple);text-transform:uppercase;margin-bottom:12px;">Secondary · Space Mono</div>
+        <div style="font-family:'Space Mono',monospace;font-weight:700;font-size:28px;color:var(--text);line-height:1.2;">ZKachi</div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+          <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--purple);line-height:2;">
+            tx: 0x7f3a...c4e2<br/>
+            proof: verified ✓<br/>
+            block: #18,432,091<br/>
+            bet: 2.5 ETH → win: 5.0 ETH
+          </div>
+        </div>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+          <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:8px;">Usos:</div>
+          <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--text2);line-height:1.8;">
+            → Labels e tags<br/>
+            → Hashes e endereços<br/>
+            → Transaction data<br/>
+            → Navigation badges<br/>
+            → Subtítulos/descriptors
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Type scale -->
+  <div class="c" style="margin-top:16px;">
+    <div class="c-pad">
+      <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:18px;">Type Scale</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:baseline;gap:14px;">
+          <span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);width:50px;flex-shrink:0;">48px</span>
+          <span style="font-weight:800;font-size:48px;color:var(--text);line-height:1;">Hero</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:14px;">
+          <span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);width:50px;flex-shrink:0;">32px</span>
+          <span style="font-weight:800;font-size:32px;color:var(--text);line-height:1;">Section Title</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:14px;">
+          <span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);width:50px;flex-shrink:0;">20px</span>
+          <span style="font-weight:600;font-size:20px;color:var(--text);line-height:1;">Card Heading</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:14px;">
+          <span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);width:50px;flex-shrink:0;">15px</span>
+          <span style="font-weight:400;font-size:15px;color:var(--text2);line-height:1;">Body text paragraph</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:14px;">
+          <span style="font-family:'Space Mono',monospace;font-size:9px;color:var(--text3);width:50px;flex-shrink:0;">11px</span>
+          <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text3);line-height:1;">LABEL · MONO CAPTION</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 03 COLORS ═══════════════ -->
+<section class="sec">
+  <div class="sh"><span class="sn">03</span><span class="st">Color Palette · Royal Night</span></div>
+  <div class="cg">
+    <div class="cc" style="background:#08060f;"><div class="cc-dot" style="background:#08060f;border-color:var(--border);"></div><div class="cc-n" style="color:var(--text3);">BG</div><div class="cc-h" style="color:var(--text3);">#08060F</div></div>
+    <div class="cc" style="background:#0d0a18;"><div class="cc-dot" style="background:#0d0a18;border-color:var(--border);"></div><div class="cc-n" style="color:var(--text3);">Surface</div><div class="cc-h" style="color:var(--text3);">#0D0A18</div></div>
+    <div class="cc" style="background:#1a1530;"><div class="cc-dot" style="background:#1a1530;"></div><div class="cc-n" style="color:var(--text3);">Border</div><div class="cc-h" style="color:var(--text3);">#1A1530</div></div>
+    <div class="cc" style="background:var(--card);"><div class="cc-dot" style="background:var(--purple);box-shadow:0 0 14px rgba(139,92,246,0.4);"></div><div class="cc-n" style="color:var(--purple);">Purple</div><div class="cc-h" style="color:var(--purple);">#8B5CF6</div></div>
+    <div class="cc" style="background:var(--card);"><div class="cc-dot" style="background:var(--gold);box-shadow:0 0 14px rgba(212,168,67,0.35);"></div><div class="cc-n" style="color:var(--gold);">Gold</div><div class="cc-h" style="color:var(--gold);">#D4A843</div></div>
+    <div class="cc" style="background:var(--card);"><div class="cc-dot" style="background:var(--text);"></div><div class="cc-n" style="color:var(--text2);">Text</div><div class="cc-h" style="color:var(--text2);">#E8E6F0</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════ 04 PATTERNS ═══════════════ -->
+<section class="sec">
+  <div class="sh"><span class="sn">04</span><span class="st">Brand Patterns</span></div>
+  <div class="g3">
+    <div class="pc">
+      <svg class="pb" width="100%" height="100%"><defs><pattern id="pa" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M20 0 L40 20 L20 40 L0 20 Z" stroke="var(--purple)" stroke-width="0.5" fill="none"/><path d="M20 0 L20 40 M0 20 L40 20" stroke="var(--purple)" stroke-width="0.3" fill="none"/></pattern></defs><rect width="100%" height="100%" fill="url(#pa)"/></svg>
+      <div class="pl">Asanoha 麻の葉<br/><span style="font-size:8px;color:var(--text3);">Hero backgrounds, landing pages</span></div>
+    </div>
+    <div class="pc">
+      <svg class="pb" width="100%" height="100%"><defs><pattern id="ps" width="60" height="30" patternUnits="userSpaceOnUse"><path d="M0 30 A30 30 0 0 1 30 0 A30 30 0 0 1 60 30" stroke="var(--purple)" stroke-width="0.5" fill="none"/><path d="M0 30 A20 20 0 0 1 20 10" stroke="var(--gold)" stroke-width="0.3" fill="none"/><path d="M60 30 A20 20 0 0 0 40 10" stroke="var(--gold)" stroke-width="0.3" fill="none"/></pattern></defs><rect width="100%" height="100%" fill="url(#ps)"/></svg>
+      <div class="pl">Seigaiha 青海波<br/><span style="font-size:8px;color:var(--text3);">Cards, sections, banners</span></div>
+    </div>
+    <div class="pc">
+      <svg class="pb" width="100%" height="100%"><defs><pattern id="pc2" width="50" height="50" patternUnits="userSpaceOnUse"><line x1="0" y1="25" x2="15" y2="25" stroke="var(--purple)" stroke-width="0.5"/><line x1="35" y1="25" x2="50" y2="25" stroke="var(--purple)" stroke-width="0.5"/><line x1="25" y1="0" x2="25" y2="15" stroke="var(--purple)" stroke-width="0.5"/><line x1="25" y1="35" x2="25" y2="50" stroke="var(--purple)" stroke-width="0.5"/><circle cx="25" cy="25" r="2.5" fill="var(--purple)" opacity="0.5"/><rect x="15" y="15" width="20" height="20" rx="3" stroke="var(--purple)" stroke-width="0.4" fill="none"/></pattern></defs><rect width="100%" height="100%" fill="url(#pc2)"/></svg>
+      <div class="pl">Circuit Grid<br/><span style="font-size:8px;color:var(--text3);">Tech sections, ZK proofs, docs</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 05 MOCKUPS ═══════════════ -->
+<section class="sec">
+  <div class="sh"><span class="sn">05</span><span class="st">Real-World Mockups</span></div>
+
+  <div class="g2">
+    <!-- Twitter/X -->
+    <div class="mock-twitter">
+      <div class="mt-banner">
+        <svg class="mtb-pattern" width="100%" height="100%"><defs><pattern id="mb1" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M20 0 L40 20 L20 40 L0 20 Z" stroke="var(--purple)" stroke-width="0.5" fill="none"/><path d="M20 0 L20 40 M0 20 L40 20" stroke="var(--purple)" stroke-width="0.3" fill="none"/></pattern></defs><rect width="100%" height="100%" fill="url(#mb1)"/></svg>
+        <div class="mtb-text">ZK<span style="color:var(--gold)">achi</span></div>
+      </div>
+      <div class="mt-profile">
+        <div class="mt-avatar">
+          <svg width="36" height="36" viewBox="0 0 200 200" fill="none">
+            <ellipse cx="100" cy="106" rx="64" ry="69" fill="var(--dbody)" stroke="var(--gold)" stroke-width="3"/>
+            <circle cx="80" cy="92" r="12" fill="var(--fill)" stroke="var(--gold)" stroke-width="2.5"/>
+            <circle cx="80" cy="92" r="5" fill="var(--gold)"/>
+            <circle cx="120" cy="92" r="12" fill="var(--fill)" stroke="var(--purple)" stroke-width="2.5"/>
+            <text x="120" y="97" text-anchor="middle" font-family="Space Mono,monospace" font-size="12" font-weight="700" fill="var(--purple)">ZK</text>
+            <path d="M66 78 Q80 69 94 78" stroke="var(--gold)" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M106 78 Q120 69 134 78" stroke="var(--purple)" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M86 118 Q100 127 114 118" stroke="var(--gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-info">
+        <div class="mt-name">ZK<b>achi</b></div>
+        <div class="mt-handle">@zkachi_io</div>
+        <div class="mt-bio">bet private, win public 🎲<br/>The first provably fair casino powered by ZK proofs. On-chain. Private. Verifiable.</div>
+      </div>
+    </div>
+
+    <!-- Discord -->
+    <div class="mock-discord">
+      <div class="dc-top">
+        <div class="dc-hash"># general</div>
+      </div>
+      <div class="dc-body">
+        <div class="dc-msg">
+          <div class="dc-av">
+            <svg width="20" height="20" viewBox="0 0 200 200" fill="none">
+              <ellipse cx="100" cy="104" rx="60" ry="65" fill="var(--dbody)" stroke="var(--gold)" stroke-width="5"/>
+              <circle cx="80" cy="94" r="14" fill="var(--gold)"/>
+              <circle cx="120" cy="94" r="14" fill="var(--purple)"/>
+            </svg>
+          </div>
+          <div class="dc-txt">
+            <span class="dc-user">ZKachi Bot</span><span class="dc-time">Today at 3:42 PM</span>
+            <div class="dc-content">
+              🎰 New ZK proof verified on-chain!
+              <div class="dc-embed">
+                <div class="de-title">Win Verified · #18432</div>
+                <div class="de-desc">Player 0x7f3a...c4e2 won 5.0 ETH<br/>Proof status: ✓ Valid · Block #18,432,091</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OG Image -->
+  <div class="mock-og" style="margin-top:16px;">
+    <div class="og-inner">
+      <svg class="og-pat" width="100%" height="100%"><defs><pattern id="ogp" width="60" height="30" patternUnits="userSpaceOnUse"><path d="M0 30 A30 30 0 0 1 30 0 A30 30 0 0 1 60 30" stroke="var(--purple)" stroke-width="0.5" fill="none"/><path d="M0 30 A20 20 0 0 1 20 10" stroke="var(--gold)" stroke-width="0.3" fill="none"/><path d="M60 30 A20 20 0 0 0 40 10" stroke="var(--gold)" stroke-width="0.3" fill="none"/></pattern></defs><rect width="100%" height="100%" fill="url(#ogp)"/></svg>
+      <div class="og-glow"></div>
+      <div class="og-content">
+        <svg width="80" height="80" viewBox="0 0 200 200" fill="none" style="margin-bottom:12px;">
+          <ellipse cx="100" cy="108" rx="68" ry="74" fill="var(--dbody)" stroke="var(--gold)" stroke-width="2.2"/>
+          <ellipse cx="100" cy="108" rx="68" ry="74" fill="url(#rg4)" opacity="0.3"/>
+          <ellipse cx="100" cy="95" rx="46" ry="42" fill="#160f25" stroke="var(--gold)" stroke-width="1" opacity="0.5"/>
+          <circle cx="78" cy="90" r="15" fill="var(--fill)" stroke="var(--gold)" stroke-width="1.5"/>
+          <circle cx="78" cy="90" r="7" fill="var(--gold)"/><circle cx="76" cy="88" r="2.5" fill="#fff" opacity="0.5"/>
+          <circle cx="122" cy="90" r="15" fill="var(--fill)" stroke="var(--purple)" stroke-width="1.5"/>
+          <text x="122" y="95" text-anchor="middle" font-family="Space Mono,monospace" font-size="12" font-weight="700" fill="var(--purple)">ZK</text>
+          <rect x="113" y="81" width="2.5" height="2.5" fill="var(--purple)" opacity="0.3"/>
+          <rect x="129" y="86" width="2" height="2" fill="var(--purple)" opacity="0.35"/>
+          <path d="M62 74 Q78 65 94 74" stroke="var(--gold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M106 74 Q122 65 138 74" stroke="var(--purple)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M85 115 Q100 124 115 115" stroke="var(--gold)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <text x="100" y="148" text-anchor="middle" font-family="Noto Sans JP,sans-serif" font-size="16" font-weight="900" fill="var(--gold)" opacity="0.4">勝</text>
+          <defs><radialGradient id="rg4" cx="0.5" cy="0.3"><stop offset="0%" stop-color="var(--purple)" stop-opacity="0.2"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
+        </svg>
+        <div style="font-weight:800;font-size:36px;color:var(--text);">ZK<span style="color:var(--gold)">achi</span></div>
+        <div style="font-family:'DM Sans',sans-serif;font-style:italic;font-size:16px;color:var(--gold);opacity:0.8;margin-top:6px;">bet private, win public</div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:2px;margin-top:12px;">ZKACHI.IO</div>
+      </div>
+    </div>
+    <div style="padding:12px 20px;background:var(--card);border-top:1px solid var(--border);">
+      <span style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;">OG Image · 1200×630 · Link Preview</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 06 RULES ═══════════════ -->
+<section class="sec">
+  <div class="sh"><span class="sn">06</span><span class="st">Brand Rules</span></div>
+
+  <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--purple);margin-bottom:14px;text-transform:uppercase;">Do's</div>
+  <div class="g3" style="margin-bottom:20px;">
+    <div class="c"><div class="c-pad" style="text-align:center;">
+      <div style="font-weight:800;font-size:24px;margin-bottom:10px;">ZK<span style="color:var(--gold)">achi</span></div>
+      <div style="font-size:10px;color:var(--text3);">✓ Sempre "ZK" em branco/texto,<br/>"achi" em gold</div>
+    </div></div>
+    <div class="c"><div class="c-pad" style="text-align:center;">
+      <div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--purple);margin-bottom:10px;">ZERO KNOWLEDGE CASINO</div>
+      <div style="font-size:10px;color:var(--text3);">✓ Descriptor sempre em<br/>Space Mono uppercase</div>
+    </div></div>
+    <div class="c"><div class="c-pad" style="text-align:center;">
+      <div style="display:flex;justify-content:center;gap:8px;margin-bottom:10px;">
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--purple);"></div>
+        <div style="width:24px;height:24px;border-radius:50%;background:var(--gold);"></div>
+      </div>
+      <div style="font-size:10px;color:var(--text3);">✓ Purple para ZK/tech,<br/>Gold para valor/vitória</div>
+    </div></div>
+  </div>
+
+  <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;color:#c23b3b;margin-bottom:14px;text-transform:uppercase;">Don'ts</div>
+  <div class="g4">
+    <div class="dont">
+      <div class="dx">✕</div>
+      <div style="font-weight:800;font-size:20px;color:var(--gold);transform:rotate(12deg);">ZKachi</div>
+      <div class="dt">Não rotacionar</div>
+    </div>
+    <div class="dont">
+      <div class="dx">✕</div>
+      <div style="font-weight:800;font-size:20px;background:linear-gradient(90deg,red,cyan);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">ZKachi</div>
+      <div class="dt">Não usar cores fora da paleta</div>
+    </div>
+    <div class="dont">
+      <div class="dx">✕</div>
+      <div style="font-weight:800;font-size:20px;color:var(--text);letter-spacing:2px;">ZKACHI</div>
+      <div class="dt">Não usar all caps<br/>(sempre ZKachi)</div>
+    </div>
+    <div class="dont">
+      <div class="dx">✕</div>
+      <div style="font-family:'Courier New',monospace;font-size:20px;color:var(--gold);">ZKachi</div>
+      <div class="dt">Não trocar<br/>as fontes</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SUMMARY ═══════════════ -->
+<section class="sec" style="margin-top:40px;">
+  <div class="c" style="background:linear-gradient(135deg,var(--card) 0%,#12101f 100%);">
+    <div class="c-pad" style="padding:36px 32px;">
+      <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--purple);text-transform:uppercase;margin-bottom:16px;">Quick Reference</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">Logo</div>
+          <div style="font-size:13px;color:var(--text);">Daruma ZK Eye · Detalhado com simplificação responsiva</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">Wordmark</div>
+          <div style="font-size:13px;color:var(--text);">ZK<span style="color:var(--gold)">achi</span> · CamelCase split</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">Fontes</div>
+          <div style="font-size:13px;color:var(--text);">Outfit (display/body) + Space Mono (labels/data)</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">Cores</div>
+          <div style="font-size:13px;color:var(--text);"><span style="color:var(--purple);">Purple #8B5CF6</span> + <span style="color:var(--gold);">Gold #D4A843</span></div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">Tagline</div>
+          <div style="font-family:'DM Sans',sans-serif;font-style:italic;font-size:13px;color:var(--gold);">bet private, win public</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--text3);margin-bottom:4px;">Patterns</div>
+          <div style="font-size:13px;color:var(--text);">Asanoha · Seigaiha · Circuit Grid</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div class="footer">
+  <div style="font-weight:800;font-size:22px;margin-bottom:6px;">ZK<span style="color:var(--gold);">achi</span></div>
+  <div style="font-family:'DM Sans',sans-serif;font-style:italic;font-size:13px;color:var(--gold);opacity:0.6;margin-bottom:14px;">bet private, win public</div>
+  <p>Brand Guide v2.0 · Final · Pronto para implementação</p>
+</div>
+
+</body>
+</html>

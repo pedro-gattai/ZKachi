@@ -1,0 +1,45 @@
+# Rust
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# Soroban
+*.wasm
+*.d
+
+# Circom
+circuits/roulette/build/
+circuits/roulette/*.r1cs
+circuits/roulette/*.sym
+circuits/roulette/*.zkey
+circuits/roulette/*.wtns
+circuits/roulette/*.json
+!circuits/roulette/input.json
+!circuits/roulette/package.json
+circuits/roulette/node_modules/
+circuits/roulette/package-lock.json
+circuits/roulette/verification_key.json
+circuits/roulette/proof.json
+circuits/roulette/public.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+*.pdf
+
+# Environment
+.env
+.env.local
+*.secret
+
+# Node
+node_modules/
