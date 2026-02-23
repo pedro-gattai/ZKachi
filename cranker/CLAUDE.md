@@ -25,11 +25,11 @@ lib/
 IDLE → COMMITTED → READY_REVEAL → IDLE
 ```
 
-1. **IDLE** — Generate random seed + salt, compute Poseidon commit, call `commit_round` on-chain. Transition to COMMITTED.
-2. **COMMITTED** — Poll `get_current_round` waiting for a player bet. If `BetPlaced` detected, transition to READY_REVEAL. If `Settled`/`TimedOut`, go back to IDLE.
-3. **READY_REVEAL** — Read player seed from `get_current_bet`, compute result `(seed_cranker + seed_player) % 37`, generate ZK proof, call `reveal_and_settle`. Go back to IDLE.
+1. **IDLE** — Generate random seed + salt, compute Poseidon commit, call `commit_round` on-chain. Wait for RPC confirmation (`waitForStateChange`), capture the round ID. Transition to COMMITTED. If a stale `BetPlaced` is seen (within 30s of last settlement), ignores it. If `BetPlaced` is seen and `activeRound` still has the seed, resumes to READY_REVEAL.
+2. **COMMITTED** — Poll `get_current_round` waiting for a player bet. If `BetPlaced` detected, transition to READY_REVEAL. If `Settled`/`TimedOut` with a mismatched round ID, treats it as a stale RPC read and keeps waiting. Otherwise, go back to IDLE.
+3. **READY_REVEAL** — Read player seed from `get_current_bet`, compute result `(seed_cranker + seed_player) % 37`, generate ZK proof, call `reveal_and_settle` (with one immediate retry on failure). Wait for RPC to confirm settlement before going back to IDLE. Records `lastSettledAt` timestamp.
 
-The bot polls every 6 seconds (configurable). Errors are logged and retried on the next tick.
+The bot polls every 6 seconds (configurable). After write operations (`commitRound`, `revealAndSettle`), the bot uses `waitForStateChange()` to poll until the expected on-chain state is observed, preventing stale RPC reads from causing incorrect state transitions.
 
 ## Commands
 
@@ -82,3 +82,5 @@ Invokes Soroban contract methods by spawning `stellar contract invoke` as a chil
 - **No persistent storage** — No database or file-based recovery; the bot relies on transient retry
 - **CLI dependency** — Requires `stellar` CLI binary; no Stellar SDK is used directly
 - **Graceful shutdown** — SIGINT handler warns about in-flight rounds but cannot persist state
+- **Stale RPC reads** — Soroban RPC can return data from a previous ledger after write operations. The bot uses `waitForStateChange()` polling and round ID comparison to handle this. The 30s stale grace period (`STALE_GRACE_MS`) and 5-attempt polling (`waitForStateChange`) are tuned for testnet latency.
+- **Reveal retry** — `reveal_and_settle` can fail on first attempt (BN254 pairing simulation flakiness). The bot retries once immediately (2s delay) before falling through to the regular tick-level retry.

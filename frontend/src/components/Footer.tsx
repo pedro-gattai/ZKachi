@@ -31,15 +31,20 @@ const Footer = () => {
 
         {/* Links */}
         <div className="flex items-center gap-6">
-          {["GitHub", "Docs", "Stellar"].map((link) => (
-            <a
-              key={link}
-              href="#"
-              className="font-space text-[10px] tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {link}
-            </a>
-          ))}
+          <a
+            href="https://github.com/pedro-gattai/ZKachi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-space text-[10px] tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors"
+          >
+            GitHub
+          </a>
+          <a
+            href="/app/docs"
+            className="font-space text-[10px] tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Docs
+          </a>
         </div>
 
         {/* Bottom line */}

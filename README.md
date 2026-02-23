@@ -18,6 +18,13 @@ Online casinos require trust — players must believe the house isn't cheating. 
 
 Neither party can cheat. Neither party can predict the outcome. The math is the dealer.
 
+### Hackathon Fit
+
+ZKachi targets two inspiration categories from **Stellar Hacks: ZK Gaming**:
+
+- **Provable randomness** (primary) — the roulette result is derived from two seeds (cranker + player) and proven correct via Groth16. Neither party can manipulate or predict the outcome.
+- **Provable outcomes** (secondary) — every round's settlement is verified on-chain by a ZK proof. Players and LPs can independently verify that payouts match the proven result.
+
 ---
 
 ## How a Round Works
@@ -65,6 +72,33 @@ PHASE 1: COMMIT                    PHASE 2: BET                        PHASE 3: 
 | **Pool** | Liquidity pool: LP deposits, share accounting, payouts |
 | **Verifier** | On-chain Groth16 proof verification via BN254 (Protocol 25) |
 | **Common** | Shared library: types, constants, ZK verifier logic (not deployed) |
+| **Hub** | Stellar Game Studio integration: session tracking via `start_game()` / `end_game()` |
+
+The roulette contract integrates with the [Stellar Game Studio](https://github.com/jamesbachini/Stellar-Game-Studio) hub contract — every round calls `start_game()` on commit and `end_game()` on settlement, enabling cross-game session tracking and analytics on Stellar.
+
+---
+
+## Frontend
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | React 18 + TypeScript + Vite |
+| Styling | Tailwind CSS + shadcn/ui (Radix primitives) |
+| Animations | Framer Motion |
+| Blockchain | Stellar SDK + Freighter wallet |
+| Data fetching | TanStack React Query (3s game polling, 10s pool/hub) |
+
+### Pages
+
+| Page | Route | Description |
+|------|-------|-------------|
+| **Landing** | `/` | Hero section with animated 3D roulette wheel |
+| **Game** | `/app/game` | Betting board + game status panel, live round interaction |
+| **Pool** | `/app/pool` | LP dashboard: deposit, withdraw, share accounting |
+| **Verify** | `/app/verify` | ZK proof explorer: round data, commits, seeds, results |
+| **Docs** | `/app/docs` | How to play, bet types, pool mechanics, ZK verification |
+
+All reads and writes go live to Soroban testnet — connect a Freighter wallet to play.
 
 ---
 
@@ -76,6 +110,8 @@ PHASE 1: COMMIT                    PHASE 2: BET                        PHASE 3: 
 | ZK circuit | Circom 2 + snarkjs (Groth16 over BN254) |
 | On-chain verification | Stellar Protocol 25 native BN254 pairings |
 | Blockchain | Stellar testnet (Soroban) |
+| Frontend | React 18 + TypeScript + Vite + Tailwind + shadcn/ui + Framer Motion |
+| Wallet | Freighter (Stellar SDK) |
 | Cranker bot | Node.js (Poseidon hashing + snarkjs proof generation) |
 | Toolchain | Rust 1.89.0, `wasm32-unknown-unknown` |
 
@@ -86,12 +122,14 @@ PHASE 1: COMMIT                    PHASE 2: BET                        PHASE 3: 
 ```
 contracts/
   common/       Shared types, constants, Groth16 verifier logic (rlib)
+  hub/          Stellar Game Studio: session tracking
   pool/         Liquidity pool: deposits, payouts, share accounting
   roulette/     Game logic: commit -> bet -> reveal -> settle
   verifier/     On-chain Groth16 proof verification
 circuits/
   roulette/     Circom circuit + compile/setup/prove scripts
 cranker/        Automated cranker bot (Node.js)
+frontend/       React + TypeScript web app (Vite + Tailwind + shadcn/ui)
 scripts/        Deploy, init, seed, and play scripts for testnet
 ```
 

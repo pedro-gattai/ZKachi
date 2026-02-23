@@ -41,8 +41,9 @@ const WASM_PATH = path.join(CIRCUIT_DIR, "roulette_js", "roulette.wasm");
 const ZKEY_PATH = path.join(CIRCUIT_DIR, "roulette_final.zkey");
 
 // --- State ---
-let activeRound = null; // { seedCrankerU64, seedCrankerBuf, seedCrankerHex, salt, commit }
+let activeRound = null; // { seedCrankerU64, seedCrankerBuf, seedCrankerHex, salt, commit, roundId }
 let crankerAddress = null;
+let lastSettledAt = 0; // Timestamp of last successful settlement
 
 // --- State Machine ---
 const State = {
@@ -77,6 +78,18 @@ async function handleIdle() {
   if (round) {
     const status = parseStatus(round.status);
     if (status === "BetPlaced") {
+      if (activeRound) {
+        // We still have the seed — resume revealing this round
+        console.log("[IDLE] Found active round with bet and we have the seed. Resuming to READY_REVEAL.");
+        state = State.READY_REVEAL;
+        return;
+      }
+      // Grace period after settlement — likely stale RPC read
+      const STALE_GRACE_MS = 30_000;
+      if (lastSettledAt && (Date.now() - lastSettledAt) < STALE_GRACE_MS) {
+        console.log("[IDLE] BetPlaced likely stale (just settled). Waiting for RPC to catch up...");
+        return;
+      }
       console.log(`[IDLE] Found active round with bet (status=BetPlaced). Cannot override — waiting for player to claim timeout (~8 min).`);
       return;
     }
@@ -95,7 +108,19 @@ async function handleIdle() {
 
   commitRound(crankerAddress, commitHex, CRANKER_BOND);
 
-  activeRound = { seedCrankerU64, seedCrankerBuf, seedCrankerHex, salt, commit };
+  // Wait for RPC to reflect the new round so we can capture its ID
+  const confirmedRound = await waitForStateChange(
+    (r) => r && parseStatus(r.status) === "Open",
+    5, 3000
+  );
+  const roundId = confirmedRound ? confirmedRound.id : null;
+  if (roundId != null) {
+    console.log(`[IDLE] Confirmed round id=${roundId} on-chain.`);
+  } else {
+    console.warn("[IDLE] Could not confirm round ID (RPC slow). Proceeding anyway.");
+  }
+
+  activeRound = { seedCrankerU64, seedCrankerBuf, seedCrankerHex, salt, commit, roundId };
   state = State.COMMITTED;
   console.log("[COMMITTED] Round committed. Waiting for a bet...");
 }
@@ -118,6 +143,11 @@ async function handleCommitted() {
   }
 
   if (status === "Settled" || status === "TimedOut") {
+    // Check if this is a stale read from a previous round
+    if (activeRound && activeRound.roundId != null && round.id !== activeRound.roundId) {
+      console.log(`[COMMITTED] Stale read (round.id=${round.id}, expected=${activeRound.roundId}). Waiting for RPC...`);
+      return;
+    }
     console.log(`[COMMITTED] Round ended (${status}) without our reveal. Returning to IDLE.`);
     activeRound = null;
     state = State.IDLE;
@@ -162,9 +192,30 @@ async function handleReveal() {
   const proofHex = proofToBytes(proof, publicSignals);
   console.log(`[REVEAL] Proof generated (${proofHex.length} hex chars). Submitting reveal_and_settle...`);
 
-  revealAndSettle(crankerAddress, activeRound.seedCrankerHex, proofHex);
+  // Attempt reveal with one immediate retry on failure
+  try {
+    revealAndSettle(crankerAddress, activeRound.seedCrankerHex, proofHex);
+  } catch (revealErr) {
+    console.warn(`[REVEAL] First attempt failed: ${revealErr.message}`);
+    console.log("[REVEAL] Retrying immediately...");
+    await sleep(2000);
+    revealAndSettle(crankerAddress, activeRound.seedCrankerHex, proofHex);
+  }
 
   console.log(`[REVEAL] Round settled! resultado=${resultado}`);
+
+  // Wait for RPC to reflect settled state before going IDLE
+  const confirmed = await waitForStateChange(
+    (r) => !r || parseStatus(r.status) === "Settled" || parseStatus(r.status) === "TimedOut",
+    5, 3000
+  );
+  if (!confirmed) {
+    console.log("[REVEAL] Settlement confirmed (round cleared).");
+  } else {
+    console.log(`[REVEAL] Settlement confirmed (status=${parseStatus(confirmed.status)}).`);
+  }
+
+  lastSettledAt = Date.now();
   activeRound = null;
   state = State.IDLE;
 }
@@ -196,6 +247,19 @@ function parseSeedPlayer(raw) {
     return raw;
   }
   throw new Error(`Cannot parse seed_player from: ${JSON.stringify(raw)}`);
+}
+
+/**
+ * Poll getCurrentRound() until expectedFn(round) returns true.
+ * Used after write operations to wait for RPC to catch up.
+ */
+async function waitForStateChange(expectedFn, maxAttempts = 5, delayMs = 3000) {
+  for (let i = 0; i < maxAttempts; i++) {
+    await sleep(delayMs);
+    const round = getCurrentRound();
+    if (expectedFn(round)) return round;
+  }
+  return null;
 }
 
 // --- Main ---
