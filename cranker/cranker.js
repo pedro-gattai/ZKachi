@@ -31,7 +31,9 @@ const {
 // --- Config ---
 const ROULETTE_ID = process.env.ROULETTE_ID;
 const NETWORK = process.env.NETWORK || "testnet";
-const SOURCE = process.env.SOURCE || "default";
+const STELLAR_SECRET = process.env.STELLAR_SECRET;
+const SOURCE = STELLAR_SECRET || process.env.SOURCE || "default";
+const CRANKER_ADDRESS_ENV = process.env.CRANKER_ADDRESS;
 const CRANKER_BOND = process.env.CRANKER_BOND || "500000000"; // 50 XLM
 const POLL_INTERVAL_MS = parseInt(process.env.POLL_INTERVAL_MS || "6000", 10);
 
@@ -271,7 +273,7 @@ async function main() {
 
   configure({ rouletteId: ROULETTE_ID, network: NETWORK, source: SOURCE });
 
-  crankerAddress = getCrankerAddress(SOURCE);
+  crankerAddress = CRANKER_ADDRESS_ENV || getCrankerAddress(SOURCE);
   console.log("=== ZKachi Cranker Bot ===");
   console.log(`  Address:  ${crankerAddress}`);
   console.log(`  Contract: ${ROULETTE_ID}`);

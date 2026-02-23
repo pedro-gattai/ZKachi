@@ -21,10 +21,4 @@ COPY cranker/ cranker/
 
 WORKDIR /app/cranker
 
-# Startup: configure stellar identity from env var, then run bot
-# SOURCE defaults to "deployer" (matching the project's .env)
-CMD sh -c '\
-  if [ -n "$STELLAR_SECRET" ]; then \
-    echo "$STELLAR_SECRET" | stellar keys add ${SOURCE:-deployer} --secret-key; \
-  fi && \
-  node cranker.js'
+CMD ["node", "cranker.js"]
