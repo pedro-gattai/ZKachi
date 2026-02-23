@@ -1,0 +1,46 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="64" fill="#101018"/>
+
+  <!-- Subtle glow behind daruma -->
+  <radialGradient id="glow" cx="256" cy="220" r="160" gradientUnits="userSpaceOnUse">
+    <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.08"/>
+    <stop offset="100%" stop-color="#101018" stop-opacity="0"/>
+  </radialGradient>
+  <circle cx="256" cy="220" r="160" fill="url(#glow)"/>
+
+  <!-- Daruma body -->
+  <ellipse cx="256" cy="230" rx="130" ry="145" fill="#14121E" stroke="#D4A843" stroke-width="5"/>
+
+  <!-- Face shadow/detail area -->
+  <ellipse cx="256" cy="195" rx="88" ry="72" fill="#1E1A2E" opacity="0.6"/>
+
+  <!-- Left eye (gold) - outer -->
+  <circle cx="216" cy="190" r="26" fill="#D4A843"/>
+  <!-- Left eye - pupil -->
+  <circle cx="216" cy="190" r="15" fill="#14121E"/>
+  <!-- Left eye - highlight -->
+  <circle cx="209" cy="183" r="7" fill="white" opacity="0.8"/>
+
+  <!-- Right eye (purple) - outer -->
+  <circle cx="296" cy="190" r="26" fill="#8B5CF6"/>
+  <!-- Right eye - ZK text -->
+  <text x="296" y="198" font-size="22" fill="white" font-family="'SF Mono', 'Fira Code', 'Courier New', monospace" text-anchor="middle" font-weight="bold">ZK</text>
+
+  <!-- Mouth -->
+  <path d="M232 232 Q256 252 280 232" stroke="#D4A843" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Decorative belly mark -->
+  <circle cx="256" cy="300" r="18" fill="none" stroke="#D4A843" stroke-width="2" opacity="0.3"/>
+  <circle cx="256" cy="300" r="8" fill="#D4A843" opacity="0.2"/>
+
+  <!-- Wordmark: ZKachi -->
+  <text x="256" y="430" text-anchor="middle" font-family="'SF Mono', 'Fira Code', 'Courier New', monospace" font-size="56" font-weight="800" letter-spacing="2">
+    <tspan fill="#D4A843">ZK</tspan><tspan fill="#8B5CF6">achi</tspan>
+  </text>
+
+  <!-- Tagline -->
+  <text x="256" y="462" text-anchor="middle" font-family="'SF Mono', 'Fira Code', 'Courier New', monospace" font-size="14" fill="#9590A8" letter-spacing="4" text-transform="uppercase">
+    ZK ROULETTE ON SOROBAN
+  </text>
+</svg>

@@ -433,31 +433,6 @@ const VerifyPage = () => {
                         <div className="bg-background border border-border/50 rounded-xl p-4 my-2 space-y-3">
                           <div>
                             <span className="block font-space text-[8px] tracking-[2px] uppercase text-muted-foreground mb-0.5">
-                              Player
-                            </span>
-                            <div className="flex items-center gap-2">
-                              <span className="font-mono text-[11px] text-foreground/80 break-all">
-                                {session.player2}
-                              </span>
-                              <button
-                                onClick={() => copyToClipboard(session.player2, "Player address")}
-                                className="shrink-0 font-space text-[8px] tracking-[1px] uppercase text-zkachi-gold hover:text-zkachi-gold/80 transition-colors"
-                              >
-                                Copy
-                              </button>
-                              <a
-                                href={stellarExpertUrl("account", session.player2)}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="shrink-0 font-space text-[8px] tracking-[1px] uppercase text-zkachi-gold hover:text-zkachi-gold/80 transition-colors"
-                              >
-                                Explorer
-                              </a>
-                            </div>
-                          </div>
-
-                          <div>
-                            <span className="block font-space text-[8px] tracking-[2px] uppercase text-muted-foreground mb-0.5">
                               Cranker
                             </span>
                             <div className="flex items-center gap-2">
