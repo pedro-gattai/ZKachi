@@ -5,10 +5,18 @@ Cargo.lock
 
 # Soroban
 *.wasm
+!circuits/roulette/build/roulette_js/roulette.wasm
 *.d
 
-# Circom
-circuits/roulette/build/
+# Circom — ignore build intermediates but keep cranker runtime artifacts
+circuits/roulette/build/pot14_*.ptau
+circuits/roulette/build/roulette_0000.zkey
+circuits/roulette/build/roulette.r1cs
+circuits/roulette/build/roulette.sym
+circuits/roulette/build/witness.wtns
+circuits/roulette/build/proof.json
+circuits/roulette/build/public.json
+circuits/roulette/build/verification_key.json
 circuits/roulette/*.r1cs
 circuits/roulette/*.sym
 circuits/roulette/*.zkey
