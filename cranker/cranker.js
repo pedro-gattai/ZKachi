@@ -282,15 +282,18 @@ async function main() {
   console.log("Starting polling loop...");
   console.log("");
 
-  // Graceful shutdown warning
-  process.on("SIGINT", () => {
+  // Graceful shutdown (SIGINT = Ctrl+C, SIGTERM = Railway/Docker stop)
+  function shutdown(signal) {
     if (activeRound) {
       console.warn("\nWARNING: Active round in progress! Seed will be lost.");
       console.warn("Player can claim timeout after ~8 min (100 ledgers).");
     }
-    console.log("\nShutting down cranker bot.");
+    console.log(`\nShutting down cranker bot (${signal}).`);
     process.exit(0);
-  });
+  }
+
+  process.on("SIGINT", () => shutdown("SIGINT"));
+  process.on("SIGTERM", () => shutdown("SIGTERM"));
 
   // Polling loop
   while (true) {
