@@ -25,6 +25,6 @@ WORKDIR /app/cranker
 # SOURCE defaults to "deployer" (matching the project's .env)
 CMD sh -c '\
   if [ -n "$STELLAR_SECRET" ]; then \
-    echo "$STELLAR_SECRET" | stellar keys add ${SOURCE:-deployer} --secret-key --network ${NETWORK:-testnet}; \
+    echo "$STELLAR_SECRET" | stellar keys add ${SOURCE:-deployer} --secret-key; \
   fi && \
   node cranker.js'
